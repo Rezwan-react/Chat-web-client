@@ -6,11 +6,7 @@ export default {
     ],
     theme: {
         extend: {
-            colors: {
-                'barnd': '#B88E2F',
-                'primary': '#333333',
-                'secondary': '#666666'
-            }
+
         },
         container: {
             center: true,
