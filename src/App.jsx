@@ -14,9 +14,9 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
+          <Route path='/registerLogin' element={<RegisterLoginPage />} />
           <Route path='/' element={<Layout />}>
             <Route index element={<HomePage />} />
-            <Route path='/registerLogin' element={<RegisterLoginPage />} />
             <Route path='/chat' element={<ChatPage />} />
             <Route path='/group' element={<GroupPage />} />
             <Route path='/people' element={<PeoplePage />} />
