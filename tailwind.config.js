@@ -6,7 +6,9 @@ export default {
     ],
     theme: {
         extend: {
-
+            boxShadow: {
+                neumorphic: '6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff',
+              },
         },
         container: {
             center: true,

@@ -19,13 +19,14 @@ function Chat() {
             </div>
             <div className="msg_box w-full h-[500px]  p-5 overflow-y-scroll">
               <div className='mb-5 '>
-                <p className="sender_msg w-fit py-1 px-3  ml-auto bg-[#6A9AB0] rounded-xl font-Poppins text-white">message</p>
-                <p className="sender_msg w-fit py-1 px-3  ml-auto  rounded-xl text-sm  font-Poppins text-black">messageTime</p>
-              </div>
-              <div className='mb-5 '>
                 <p className="recive_msg w-fit py-1 px-3 bg-[#3A6D8C] rounded-xl font-Poppins text-white">message</p>
                 <p className="sender_msg w-fit py-1 px-3    rounded-xl text-sm font-Poppins text-black">messageTime</p>
               </div>
+              <div className='mb-5 '>
+                <p className="sender_msg w-fit py-1 px-3  ml-auto bg-[#6A9AB0] rounded-xl font-Poppins text-white">message</p>
+                <p className="sender_msg w-fit py-1 px-3  ml-auto  rounded-xl text-sm  font-Poppins text-black">messageTime</p>
+              </div>
+
             </div>
             <div className="msg_input flex px-10  border-t-2 border-t-[#640D5F]  ">
               <input
