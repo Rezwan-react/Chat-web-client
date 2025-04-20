@@ -5,7 +5,7 @@ function Chat() {
   return (
     <>
       <section className='w-full h-screen'>
-        <div className="container">
+        <div className="container ">
           <div className='chat_text  '>
             <div className="userDataBar p-5 bg-[#FDFAF6]">
               <div className="singel_users flex justify-between mb-5 items-center ">

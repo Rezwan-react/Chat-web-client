@@ -1,6 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router'
 import './App.css'
-import HomePage from './pages/HomePage'
 import Layout from './components/layout/Layout'
 import RegisterLoginPage from './pages/RegisterLoginPage'
 import ChatPage from './pages/ChatPage'
@@ -16,8 +15,7 @@ function App() {
         <Routes>
           <Route path='/registerLogin' element={<RegisterLoginPage />} />
           <Route path='/' element={<Layout />}>
-            <Route index element={<HomePage />} />
-            <Route path='/chat' element={<ChatPage />} />
+            <Route index element={<ChatPage />} />
             <Route path='/group' element={<GroupPage />} />
             <Route path='/people' element={<PeoplePage />} />
           </Route>
