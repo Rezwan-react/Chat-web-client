@@ -26,8 +26,8 @@ function RegisterLogin() {
                 >
                     <div className="text-xl font-semibold pb-2">Login</div>
                     <input
-                        type="text"
-                        placeholder="Username"
+                        type="email"
+                        placeholder="email"
                         className="w-60 h-11 px-3 rounded-md border-2 border-[#212121] bg-[#212121] text-white shadow-[6px_6px_10px_rgba(0,0,0,1),1px_1px_10px_rgba(255,255,255,0.6)] focus:scale-105 focus:outline-none transition-all duration-300"
                     />
                     <div className="relative w-60">
@@ -74,12 +74,12 @@ function RegisterLogin() {
                     <div className="text-xl font-semibold pb-2">SignUp</div>
                     <input
                         type="text"
-                        placeholder="Firstname"
+                        placeholder="fullName"
                         className="w-60 h-11 px-3 rounded-md border-2 border-[#212121] bg-[#212121] text-white shadow-[6px_6px_10px_rgba(0,0,0,1),1px_1px_10px_rgba(255,255,255,0.6)] focus:scale-105 focus:outline-none transition-all duration-300"
                     />
                     <input
-                        type="text"
-                        placeholder="Username"
+                        type="email"
+                        placeholder="email"
                         className="w-60 h-11 px-3 rounded-md border-2 border-[#212121] bg-[#212121] text-white shadow-[6px_6px_10px_rgba(0,0,0,1),1px_1px_10px_rgba(255,255,255,0.6)] focus:scale-105 focus:outline-none transition-all duration-300"
                     />
                     <div className="relative w-60">
