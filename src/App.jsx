@@ -5,7 +5,7 @@ import RegisterLoginPage from './pages/RegisterLoginPage'
 import ChatPage from './pages/ChatPage'
 import GroupPage from './pages/GroupPage'
 import PeoplePage from './pages/PeoplePage'
-import FriendConfirmCard from './components/FriendConCard/FriendConfirmCard'
+import OtpVerifyPage from './pages/OtpVerifyPage'
 
 
 function App() {
@@ -19,7 +19,7 @@ function App() {
             <Route index element={<ChatPage />} />
             <Route path='/group' element={<GroupPage />} />
             <Route path='/people' element={<PeoplePage />} />
-            <Route path='/friendConfirmCard' element={<FriendConfirmCard />} />
+            <Route path='/otpVerifyPage' element={<OtpVerifyPage />} />
           </Route>
         </Routes>
       </BrowserRouter>
