@@ -1,11 +1,12 @@
 import { BrowserRouter, Route, Routes } from 'react-router'
 import './App.css'
 import Layout from './components/layout/Layout'
-import RegisterLoginPage from './pages/RegisterLoginPage'
 import ChatPage from './pages/ChatPage'
 import GroupPage from './pages/GroupPage'
 import PeoplePage from './pages/PeoplePage'
 import OtpVerifyPage from './pages/OtpVerifyPage'
+import LoginPage from './pages/LoginPage'
+import RegisterPage from './pages/RegisterPage'
 
 
 function App() {
@@ -14,7 +15,8 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path='/registerLogin' element={<RegisterLoginPage />} />
+          <Route path='/register' element={<RegisterPage/>} />
+          <Route path='/login' element={<LoginPage />} />
           <Route path='/' element={<Layout />}>
             <Route index element={<ChatPage />} />
             <Route path='/group' element={<GroupPage />} />
