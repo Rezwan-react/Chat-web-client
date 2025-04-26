@@ -1,13 +1,50 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {  } from "react-icons/fa";
 import { IoCheckmarkCircleOutline } from 'react-icons/io5';
+import { useNavigate, useParams } from 'react-router';
+import { authServices } from '../../services/api';
+import { ToastContainer, toast } from 'react-toastify';
 
 function OtpVerify() {
+    const params            = useParams().email;
+    const [otp, setOtp]     = useState(Array(4).fill(""));
+    const navigate          = useNavigate();
+
+    const handelVerify = async (e)=>{
+        e.preventDefault();
+        try {
+            const res = await authServices.verifyOtp(params, otp.join(""));
+            toast.success(res.success);
+            setTimeout(() => {
+              navigate("/login");
+            }, 2000);
+          } catch (error) {
+            toast.error(error.response.data.error);
+          }
+    }
+
+    const handelInputs = (item, i) => {
+        let newOtp = [...otp];
+        newOtp[i] = item;
+        setOtp(newOtp);
+      };
+
     return (
         <>
-            <section className="flex justify-center items-center h-screen m-auto w-full bg-[#212121]">
+            <section className="flex justify-center items-center h-screen m-auto w-full bg-[#212121]" >
+                 <ToastContainer
+                 position="top-center"
+                 autoClose={5000}
+                 hideProgressBar={false}
+                 closeOnClick={false}
+                 rtl={false}
+                 theme="dark"
+                 />
+            
+            
                 <div className="container w-fit">
-                    <form className="w-[290px] pt-[40px] pb-[80px] flex flex-col border-1 border-[#fff] rounded-[15px] bg-[#333333] shadow-[0_4px_30px_rgba(0,0,0,0.1)] transition ease-in-out  ">
+                    <form className="w-[290px] pt-[40px] pb-[80px] flex flex-col border-1 border-[#fff] rounded-[15px] bg-[#333333] shadow-[0_4px_30px_rgba(0,0,0,0.1)] transition ease-in-out 
+                     " onSubmit={handelVerify} >
                         <p className=" text-2xl text-center text-white font-bold ">Email Verify</p>
 
                         <div className='m-auto'>
@@ -15,31 +52,19 @@ function OtpVerify() {
                         </div>
 
                         <div className="flex justify-center mt-8">
-                           
+                           {
+                            otp.map((item, i)=>(
                                 <input
-                                    
-                                    type="text"
-                                    maxLength="1"
-                                    className="w-10 h-10 mx-2 text-[#fff] border-1 border-[#fff] rounded bg-transparent shadow-inner outline-none text-center transition duration-300 "
-                                />
-                                <input
-                                    
-                                    type="text"
-                                    maxLength="1"
-                                    className="w-10 h-10 mx-2 text-[#fff] border-1 border-[#fff] rounded bg-transparent shadow-inner outline-none text-center transition duration-300 "
-                                />
-                                <input
-                                    
-                                    type="text"
-                                    maxLength="1"
-                                    className="w-10 h-10 mx-2 text-[#fff] border-1 border-[#fff] rounded bg-transparent shadow-inner outline-none text-center transition duration-300 "
-                                />
-                                <input
-                                    
-                                    type="text"
-                                    maxLength="1"
-                                    className="w-10 h-10 mx-2 text-[#fff] border-1 border-[#fff] rounded bg-transparent shadow-inner outline-none text-center transition duration-300 "
-                                />
+                                key={i}
+                                onChange={(e) => handelInputs(e.target.value, i)}
+                                required
+                                type="text"
+                                maxLength="1"
+                                className="w-10 h-10 mx-2 text-[#fff] border-1 border-[#fff] rounded bg-transparent shadow-inner outline-none text-center transition duration-300 "
+                            />
+                            ))
+                           }
+                              
                            
                         </div>
                         <div className='flex flex-col justify-center items-center '>

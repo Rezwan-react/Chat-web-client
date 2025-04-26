@@ -5,9 +5,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from "react-router";
 
 function Register() {
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const navigate = useNavigate();
+  const [showPassword, setShowPassword]                   = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword]     = useState(false);
+  const navigate                                          = useNavigate();
 
   const [registerData, setRegisterData] = useState({
     fullName: "",
@@ -22,7 +22,7 @@ function Register() {
         const res = await authServices.registration(registerData)
         toast.success(res.success);
         setTimeout(() => {
-            navigate("/otpVerifyPage");
+            navigate(`/otpVerifyPage/${registerData.email}`);
         }, 2000);
     } catch (error) {
         toast.error(error.response.data.error); 

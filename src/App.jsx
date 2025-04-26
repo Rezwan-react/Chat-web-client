@@ -19,7 +19,7 @@ function App() {
             <Route index element={<ChatPage />} />
             <Route path="/group" element={<GroupPage />} />
             <Route path="/people" element={<PeoplePage />} />
-            <Route path="/otpVerifyPage" element={<OtpVerifyPage />} />
+            <Route path="/otpVerifyPage/:email" element={<OtpVerifyPage />} />
           </Route>
         </Routes>
       </BrowserRouter>
