@@ -83,7 +83,7 @@ function Register() {
                   {showPassword ? <FaEyeSlash /> : <FaEye />}
                 </button>
               </div>
-              <div className="relative w-60">
+              <div className="relative w-60"> 
                 <input
                   type={showConfirmPassword ? "text" : "password"}
                   placeholder="Enter your confirm password"

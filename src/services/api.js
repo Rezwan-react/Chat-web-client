@@ -12,8 +12,17 @@ export const authServices = {
     const res = await api.post("/auth/registration", userData);
     return res.data;
   },
-  verifyOtp : async (email, otp)=>{
-    const res = await api.post("/auth/verifyemail", {email, otp})
+  verifyOtp: async (email, otp) => {
+    const res = await api.post("/auth/verifyemail", { email, otp })
+    return res.data;
+  },
+  loginUser: async (userData) => {
+    const res = await api.post("/auth/login", userData);
+    if (res.data.accessToken) {
+      localStorage.setItem("token", res.data.accessToken);
+      localStorage.setItem("loggedUser", JSON.stringify(res.data.user));
+    }
+
     return res.data;
   }
 };
