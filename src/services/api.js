@@ -22,7 +22,6 @@ export const authServices = {
       localStorage.setItem("token", res.data.accessToken);
       localStorage.setItem("loggedUser", JSON.stringify(res.data.user));
     }
-
     return res.data;
   }
 };

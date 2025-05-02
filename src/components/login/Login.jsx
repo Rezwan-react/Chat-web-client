@@ -3,10 +3,13 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useNavigate } from 'react-router';
 import { authServices } from '../../services/api';
 import { toast, ToastContainer } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import { loggedUser } from '../../store/slices/authSlice';
 
 function Login() {
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
+    const dispatch = useDispatch()
 
     const [loginData, setLoginData] = useState({
         email: "",
@@ -19,9 +22,10 @@ function Login() {
         try {
             const res = await authServices.loginUser(loginData)
             toast.success(res.success);
-            // setTimeout(() => {
-            //     navigate(`/otpVerifyPage/${loginData.email}`);
-            // }, 2000);
+            dispatch(loggedUser(res.user));
+            setTimeout(() => {
+                navigate("/");
+            }, 2000);
         } catch (error) {
             toast.error(error.response.data.error);
         }
@@ -52,7 +56,7 @@ function Login() {
                                 <div className="text-xl font-semibold pb-2">Login</div>
                                 <input type="email" placeholder="email" onChange={(e) => setLoginData((prev) => ({ ...prev, email: e.target.value }))} className="w-60 h-11 px-3 rounded-md border-2 border-[#212121] bg-[#212121] text-white shadow-[6px_6px_10px_rgba(0,0,0,1),1px_1px_10px_rgba(255,255,255,0.6)] focus:scale-105 focus:outline-none transition-all duration-300" />
                                 <div className="relative w-60">
-                                    <input type={showPassword ? 'text' : 'password'}  onChange={(e) => setLoginData((prev) => ({ ...prev, password: e.target.value }))} placeholder="Password" className="w-full h-11 px-3 pr-10 rounded-md border-2 border-[#212121] bg-[#212121] text-white shadow-[6px_6px_10px_rgba(0,0,0,1),1px_1px_10px_rgba(255,255,255,0.6)] focus:scale-105 focus:outline-none transition-all duration-300" />
+                                    <input type={showPassword ? 'text' : 'password'} onChange={(e) => setLoginData((prev) => ({ ...prev, password: e.target.value }))} placeholder="Password" className="w-full h-11 px-3 pr-10 rounded-md border-2 border-[#212121] bg-[#212121] text-white shadow-[6px_6px_10px_rgba(0,0,0,1),1px_1px_10px_rgba(255,255,255,0.6)] focus:scale-105 focus:outline-none transition-all duration-300" />
                                     <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-3 text-white" >
                                         {showPassword ? <FaEyeSlash /> : <FaEye />}
                                     </button>

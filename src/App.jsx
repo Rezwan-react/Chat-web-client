@@ -15,11 +15,11 @@ function App() {
         <Routes>
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/otpVerifyPage/:email" element={<OtpVerifyPage />} />
           <Route path="/" element={<Layout />}>
             <Route index element={<ChatPage />} />
             <Route path="/group" element={<GroupPage />} />
             <Route path="/people" element={<PeoplePage />} />
-            <Route path="/otpVerifyPage/:email" element={<OtpVerifyPage />} />
           </Route>
         </Routes>
       </BrowserRouter>

@@ -1,7 +1,10 @@
 import React from 'react'
 import { FaRegPaperPlane } from 'react-icons/fa'
+import { useSelector } from 'react-redux';
 
 function Chat() {
+  const userData = useSelector((state) => state.user);
+
   return (
     <>
       <section className='w-full h-screen'>
@@ -11,9 +14,9 @@ function Chat() {
               <div className="singel_users flex justify-between mb-5 items-center ">
                 <div className='flex items-center gap-5'>
                   <div className=" bg-green-100 user_image w-[50px] h-[50px] rounded-full overflow-hidden">
-                    <img src="/img/rezwan.jpg" alt="user photo" />
+                    <img src={userData?.avatar} alt="user photo" />
                   </div>
-                  <h2 className='text-lg font-semibold text-[#222222]'>friendName</h2>
+                  <h2 className='text-lg font-semibold text-[#222222]'>{userData?.fullName}</h2>
                 </div>
               </div>
             </div>

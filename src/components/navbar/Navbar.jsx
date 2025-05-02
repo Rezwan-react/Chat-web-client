@@ -2,9 +2,11 @@ import React from 'react'
 import { CgMenuRound } from 'react-icons/cg'
 import { CiChat1 } from 'react-icons/ci'
 import { GrGroup } from 'react-icons/gr'
+import { useSelector } from 'react-redux'
 import { Link, Links, NavLink } from 'react-router'
 
 function Navbar() {
+    const userData = useSelector((state) => state.user);
     return (
         <nav>
             <div className="container">
@@ -16,10 +18,10 @@ function Navbar() {
                     </ul>
                     <div className='flex items-center gap-2'>
                         <div className='w-12 h-12 rounded-full broder-[1px] border-rose-500 overflow-hidden'>
-                            <img src="/img/rezwan.jpg" alt="img" />
+                            <img src={userData?.avatar} alt="img" />
                         </div>
                         <div>
-                            <h2 className='text-[18px] font-semibold font-poppins text-[#000]'>Rezwan</h2>
+                            <h2 className='text-[18px] font-semibold font-poppins text-[#000]'>{userData?.fullName}</h2>
                             <Link className='text-[13px] font-normal font-poppins text-[#000]' to="#">Edit Profile</Link>
                         </div>
                     </div>
