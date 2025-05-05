@@ -17,8 +17,12 @@ function Navbar() {
                         <NavLink to="/people" className={({ isActive }) => isActive ? "flex items-center  gap-2 px-[19px] py-[16px] bg-[#32375C] text-[#fff] rounded-xl " : "flex items-center gap-2 px-[19px] py-[16px] hover:text-gray-200 transition-colors duration-200"}><CgMenuRound className='text-2xl' /><span>People</span> </NavLink>
                     </ul>
                     <div className='flex items-center gap-2'>
-                        <div className='w-12 h-12 rounded-full broder-[1px] border-rose-500 overflow-hidden'>
-                            <img src={userData?.avatar} alt="img" />
+                        <div className='w-12 h-12 rounded-full border-2 border-[#FFC1DA] overflow-hidden flex items-center justify-center text-black text-2xl font-bold uppercase'>
+                            {userData.avatar ? (
+                                <img src={userData?.avatar} className='w-full h-full object-cover ' alt="user photo" />
+                            ) : (
+                                userData.fullName.charAt(0).toUpperCase()
+                            )}
                         </div>
                         <div>
                             <h2 className='text-[18px] font-semibold font-poppins text-[#000]'>{userData?.fullName}</h2>
