@@ -41,7 +41,10 @@ export const authServices = {
 export const chatServices = {
   ConversationList: async () => {
     const res = await api.get("/chat/conversationlist");
-    console.log(res)
     return res.data;
-  }
-}
+  },
+  AddCon: async (participentEmail) => {
+    const res = await api.post("/chat/createconversation", { participentEmail });
+    return res.data;
+  },
+};

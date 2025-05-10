@@ -18,10 +18,10 @@ function Navbar() {
                     </ul>
                     <div className='flex items-center gap-2'>
                         <div className='w-12 h-12 rounded-full border-2 border-[#FFC1DA] overflow-hidden flex items-center justify-center text-black text-2xl font-bold uppercase'>
-                            {userData.avatar ? (
+                            {userData?.avatar ? (
                                 <img src={userData?.avatar} className='w-full h-full object-cover ' alt="user photo" />
                             ) : (
-                                userData.fullName.charAt(0).toUpperCase()
+                                userData?.fullName.charAt(0).toUpperCase()
                             )}
                         </div>
                         <div>

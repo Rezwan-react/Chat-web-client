@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 function People() {
   const userData = useSelector((state) => state.user);
   const [conversation, setConversation] = useState([]);
+  const [contactEmail, setContactEmail] = useState("");
 
   useEffect(() => {
     (async () => {
@@ -19,26 +20,38 @@ function People() {
     })();
   }, []);
 
+  const handelAdd = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await chatServices.AddCon(contactEmail);
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <section className='bg-[#e8e8e8] w-full min-h-screen py-6'>
       <div className="pl-4 pr-4 max-w-md">
 
-        {/* Search Bar & Add Button */}
-        <div className="flex items-center justify-between mb-4">
+        {/*================================= Search Bar & Add Button ===========================*/}
+        <form onClick={handelAdd} className="flex items-center justify-between mb-4">          
           <div className="flex items-center bg-white rounded-xl px-3 py-2 w-full shadow">
             <FiSearch className="text-gray-500 mr-2" />
             <input
-              type="text"
+              type="email"
               placeholder="Search..."
+              required
+              onChange={(e) => setContactEmail(e.target.value)}
               className="bg-transparent w-full outline-none text-sm"
             />
           </div>
-          <button className="ml-3 bg-[#009087] hover:bg-[#007b74] text-white p-2 rounded-xl shadow transition">
+          <button type='submit' className="ml-3 bg-[#009087] hover:bg-[#007b74] text-white p-2 rounded-xl shadow transition active:scale-95">
             <FiPlus className="text-xl" />
           </button>
-        </div>
+        </form>
 
-        {/* People Card List */}
+        {/*=============================== People Card List =======================*/}
         {conversation.map((item) => {
           const isCreator = item.creator._id === userData._id;
           const otherUser = isCreator ? item.participent : item.creator;

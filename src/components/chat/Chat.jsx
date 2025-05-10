@@ -14,10 +14,10 @@ function Chat() {
               <div className="singel_users flex justify-between mb-5 items-center ">
                 <div className='flex items-center gap-5'>
                   <div className=" bg-green-100 user_image w-[50px] h-[50px] rounded-full border-2 border-[#FFC1DA] overflow-hidden flex items-center justify-center text-black text-2xl font-bold uppercase">
-                    {userData.avatar ? (
+                    {userData?.avatar ? (
                       <img src={userData?.avatar} className='w-full h-full object-cover ' alt="user photo" />
                     ) : (
-                      userData.fullName.charAt(0).toUpperCase()
+                      userData?.fullName.charAt(0).toUpperCase()
                     )}
                   </div>
                   <h2 className='text-lg font-semibold text-[#222222]'>{userData?.fullName}</h2>
