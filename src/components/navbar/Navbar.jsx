@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux'
 import { Link, Links, NavLink } from 'react-router'
 
 function Navbar() {
-    const userData = useSelector((state) => state.user);
+    const userData = useSelector((state) => state.authSlice.user);
     return (
         <nav>
             <div className="container">

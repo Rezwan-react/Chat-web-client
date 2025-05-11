@@ -3,7 +3,7 @@ import { FaRegPaperPlane } from 'react-icons/fa'
 import { useSelector } from 'react-redux';
 
 function Chat() {
-  const userData = useSelector((state) => state.user);
+  const userData = useSelector((state) => state.authSlice.user);
 
   return (
     <>

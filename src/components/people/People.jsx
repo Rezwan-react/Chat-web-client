@@ -1,29 +1,34 @@
 import React, { useEffect, useState } from 'react';
 import { FiSearch, FiPlus } from 'react-icons/fi';
 import { chatServices } from '../../services/api';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchConversations } from '../../store/slices/conversationSlice';
+import Lottie from "lottie-react";
+import loading from "../../../public/animation/loading.json"
 
 function People() {
-  const userData = useSelector((state) => state.user);
-  const [conversation, setConversation] = useState([]);
+  const userData = useSelector((state) => state.authSlice.user);
+  // const [conversation, setConversation] = useState([]);
   const [contactEmail, setContactEmail] = useState("");
-
+  const dispatch = useDispatch();
+  const { conversation, error, status } = useSelector(
+    (state) => state.conversationSlice
+  );
+  // ============================ People Card List function 
   useEffect(() => {
-    (async () => {
-      try {
-        const res = await chatServices.ConversationList();
-        setConversation(res);
-        console.log(res);
-      } catch (error) {
-        console.log(error);
-      }
-    })();
+    dispatch(fetchConversations());
   }, []);
 
+  if (status === "loading") {
+    return <div ><Lottie animationData={loading} /> </div>;
+  }
+
+  // ====================================== add contact handel function 
   const handelAdd = async (e) => {
     e.preventDefault();
     try {
       const res = await chatServices.AddCon(contactEmail);
+      dispatch(fetchConversations());
       console.log(res);
     } catch (error) {
       console.log(error);
@@ -35,7 +40,7 @@ function People() {
       <div className="pl-4 pr-4 max-w-md">
 
         {/*================================= Search Bar & Add Button ===========================*/}
-        <form onClick={handelAdd} className="flex items-center justify-between mb-4">          
+        <form onSubmit={handelAdd} className="flex items-center justify-between mb-4">
           <div className="flex items-center bg-white rounded-xl px-3 py-2 w-full shadow">
             <FiSearch className="text-gray-500 mr-2" />
             <input
