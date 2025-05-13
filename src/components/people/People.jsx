@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FiSearch, FiPlus } from 'react-icons/fi';
 import { chatServices } from '../../services/api';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchConversations } from '../../store/slices/conversationSlice';
+import { fetchConversations, selectConversation } from '../../store/slices/conversationSlice';
 import Lottie from "lottie-react";
 import loading from "../../../public/animation/loading.json"
 
@@ -33,6 +33,10 @@ function People() {
     } catch (error) {
       console.log(error);
     }
+  }
+  // ====================================== add Select handel function 
+  const handelSelect = (item) => {
+    dispatch(selectConversation(item))
   }
 
   return (
@@ -68,6 +72,7 @@ function People() {
           return (
             <div
               key={item._id}
+              onClick={() => handelSelect({ ...item.participent, conversationID: item._id })}
               className='main flex items-center gap-5 p-4 bg-[#009087] border border-[#e8e8e8] rounded-xl shadow-neumorphic mb-4'
             >
               <div className="bg-green-100 user_image w-[60px] h-[50px] rounded-full overflow-hidden flex items-center justify-center text-black text-2xl font-bold uppercase">
@@ -81,7 +86,7 @@ function People() {
                   otherUser.fullName.charAt(0).toUpperCase()
                 )}
               </div>
-              <div className='flex items-center justify-between w-full'>
+              <div onClick={() => handelSelect({ ...item.creator, conversationID: item._id })} className='flex items-center justify-between w-full'>
                 <div>
                   <h2 className='text-lg font-semibold text-white'>{otherUser.fullName}</h2>
                   <p className='text-sm font-semibold text-white'>{lastMessage}</p>
