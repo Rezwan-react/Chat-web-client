@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { chatServices } from "../../services/api";
 
+// ============================ fetchConversations part start
 export const fetchConversations = createAsyncThunk(
     "/chat/conversationlist",
     async () => {
@@ -12,19 +13,33 @@ export const fetchConversations = createAsyncThunk(
         }
     }
 );
+// ======================== fetchMessages part start
+export const fetchMessages = createAsyncThunk(
+    "/chat/getmessage",
+    async (conversationID) => {
+        try {
+            const res = await chatServices.getMessages(conversationID);
+            return res;
+        } catch (error) {
+            return error;
+        }
+    }
+);
 
 const conversationSlice = createSlice({
     name: "conversation",
     initialState: {
         conversation: [],
-        selectedConversation: null,
         status: "active",
+        selectedConversation: null,
+        messages: [],
         error: null,
     },
     reducers: {
         selectConversation: (state, actions) => {
             state.selectedConversation = actions.payload;
-        }
+        },
+        
     },
     extraReducers: (builder) => {
         builder
@@ -38,7 +53,10 @@ const conversationSlice = createSlice({
             .addCase(fetchConversations.rejected, (state, action) => {
                 state.status = "failed";
                 state.error = action.error;
-            });
+            })
+            .addCase(fetchMessages.fulfilled, (state, action) => {
+                state.messages = action.payload;
+            })
     },
 });
 
