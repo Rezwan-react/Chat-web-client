@@ -37,7 +37,9 @@ function People() {
 
   //=============================== Handle Select Conversation
   const handelSelect = (item) => {
-    dispatch(selectConversation(item));
+    if (item?.conversationID !== selectedConversation?.conversationID) {
+      dispatch(selectConversation(item));
+    }
   };
 
   return (

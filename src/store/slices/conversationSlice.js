@@ -9,7 +9,7 @@ export const fetchConversations = createAsyncThunk(
             const res = await chatServices.ConversationList();
             return res;
         } catch (error) {
-            return error
+            return Promise.reject(error);
         }
     }
 );
@@ -21,7 +21,19 @@ export const fetchMessages = createAsyncThunk(
             const res = await chatServices.getMessages(conversationID);
             return res;
         } catch (error) {
-            return error;
+            return Promise.reject(error);
+        }
+    }
+);
+// ======================== sendMessage part start
+export const sendMessage = createAsyncThunk(
+    "/chat/send",
+    async (data) => {
+        try {
+            const res = await chatServices.sendmessage(data);
+            return res;
+        } catch (error) {
+            return Promise.reject(error);
         }
     }
 );
@@ -39,7 +51,7 @@ const conversationSlice = createSlice({
         selectConversation: (state, actions) => {
             state.selectedConversation = actions.payload;
         },
-        
+
     },
     extraReducers: (builder) => {
         builder
@@ -56,6 +68,9 @@ const conversationSlice = createSlice({
             })
             .addCase(fetchMessages.fulfilled, (state, action) => {
                 state.messages = action.payload;
+            })
+            .addCase(sendMessage.fulfilled, (state, action) => {
+                state.messages.push(action.payload);
             })
     },
 });
