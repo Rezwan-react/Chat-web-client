@@ -7,6 +7,7 @@ import PeoplePage from "./pages/PeoplePage";
 import OtpVerifyPage from "./pages/OtpVerifyPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
+import Profile from "./components/Profile/Profile";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Route index element={<ChatPage />} />
             <Route path="/group" element={<GroupPage />} />
             <Route path="/people" element={<PeoplePage />} />
+            <Route path="/profile" element={<Profile />} />
           </Route>
         </Routes>
       </BrowserRouter>
