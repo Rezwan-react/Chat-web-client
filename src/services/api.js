@@ -14,10 +14,9 @@ api.interceptors.request.use((config) => {
     config.headers.Authorization = token;
   }
   return config;
-}, (error) => {
-  return Promise.reject(error);
+}, (err) => {
+  return Promise.reject(err);
 })
-
 // ============================== authServices part start
 export const authServices = {
   registration: async (userData) => {
@@ -37,7 +36,7 @@ export const authServices = {
     return res.data;
   }
 };
-
+// =============================== chatServices part start
 export const chatServices = {
   ConversationList: async () => {
     const res = await api.get("/chat/conversationlist");

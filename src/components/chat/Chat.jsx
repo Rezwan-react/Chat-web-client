@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { FaRegPaperPlane } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchMessages, sendMessage } from '../../store/slices/conversationSlice';
@@ -6,28 +6,29 @@ import { fetchMessages, sendMessage } from '../../store/slices/conversationSlice
 function Chat() {
   const dispatch = useDispatch();
   const [content, setContent] = useState("");
+  const chatContainer = useRef(null)
 
   const { selectedConversation, messages } = useSelector((state) => state.conversationSlice);
-  const { user } = useSelector((state) => state.authSlice); // Get current user
+  const { user } = useSelector((state) => state.authSlice);
 
   useEffect(() => {
     if (selectedConversation?.conversationID) {
       dispatch(fetchMessages(selectedConversation.conversationID));
     }
   }, [selectedConversation, dispatch]);
-
+  // =================== handleSendChat part start
   const handleSendChat = (e) => {
     e.preventDefault();
     if (!content.trim()) return;
-
-    dispatch(sendMessage({
-      content,
-      reciverId: selectedConversation._id,
-      conversationId: selectedConversation.conversationID,
-    }));
-
-    setContent(""); // Clear input after sending
+    dispatch(sendMessage({ content, reciverId: selectedConversation._id, conversationId: selectedConversation.conversationID, }));
+    setContent("");
   };
+  // =================== handleScroll part start
+  useEffect(() => {
+    if (chatContainer.current) {
+      chatContainer.current.scrollTop = chatContainer.current.scrollHeight;
+    }
+  }, [messages]);
 
   return (
     <section className='w-full h-screen'>
@@ -56,7 +57,7 @@ function Chat() {
           </div>
 
           {/* ========== Chat Messages ========== */}
-          <div className="msg_box w-full h-[500px] p-5 overflow-y-scroll">
+          <div ref={chatContainer} className="msg_box w-full h-[500px] p-5 overflow-y-scroll">
             {messages.length > 0 ? (
               messages.map((message) => (
                 <div key={message._id} className='mb-5'>

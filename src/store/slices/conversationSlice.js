@@ -37,7 +37,7 @@ export const sendMessage = createAsyncThunk(
         }
     }
 );
-
+// ========================== conversationSlice part start
 const conversationSlice = createSlice({
     name: "conversation",
     initialState: {
@@ -51,7 +51,9 @@ const conversationSlice = createSlice({
         selectConversation: (state, actions) => {
             state.selectedConversation = actions.payload;
         },
-
+        newMessage: (state, actions) => {
+            state.messages.push(actions.payload)
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -69,11 +71,8 @@ const conversationSlice = createSlice({
             .addCase(fetchMessages.fulfilled, (state, action) => {
                 state.messages = action.payload;
             })
-            .addCase(sendMessage.fulfilled, (state, action) => {
-                state.messages.push(action.payload);
-            })
     },
 });
 
-export const { selectConversation } = conversationSlice.actions;
+export const { selectConversation, newMessage } = conversationSlice.actions;
 export default conversationSlice.reducer;

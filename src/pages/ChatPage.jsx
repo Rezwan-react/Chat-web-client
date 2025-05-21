@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Chat from '../components/chat/Chat';
 import People from '../components/people/People';
 import { useSelector } from 'react-redux';
+import { initSocket } from '../services/socket';
 
 function ChatPage() {
   const { selectedConversation } = useSelector((state) => state.conversationSlice);
+
+  useEffect(() => {
+    initSocket()
+  }, [])
 
   return (
     <>
