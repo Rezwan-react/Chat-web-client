@@ -11,6 +11,7 @@ export const initSocket = () => {
         store.dispatch(newMessage(res))
     });
 
+    // ========== Socket connect and disconnect 
     socket.on("connect", () => {
         console.log("Socket connected with server")
     });

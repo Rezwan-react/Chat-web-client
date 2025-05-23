@@ -13,6 +13,18 @@ export const fetchConversations = createAsyncThunk(
         }
     }
 );
+// ========================= addConversation part start
+export const addConversation = createAsyncThunk(
+    "/chat/createconversation",
+    async (participentEmail) => {
+        try {
+            const res = await chatServices.AddCon(participentEmail);
+            return res;
+        } catch (error) {
+            return Promise.reject(error);
+        }
+    }
+);
 // ======================== fetchMessages part start
 export const fetchMessages = createAsyncThunk(
     "/chat/getmessage",
@@ -67,6 +79,9 @@ const conversationSlice = createSlice({
             .addCase(fetchConversations.rejected, (state, action) => {
                 state.status = "failed";
                 state.error = action.error;
+            })
+            .addCase(addConversation.fulfilled, (state, action) => {
+                state.conversation.unshift(action.payload)
             })
             .addCase(fetchMessages.fulfilled, (state, action) => {
                 state.messages = action.payload;

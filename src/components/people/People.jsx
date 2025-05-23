@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FiSearch, FiPlus } from 'react-icons/fi';
 import { chatServices } from '../../services/api';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchConversations, selectConversation } from '../../store/slices/conversationSlice';
+import { addConversation, fetchConversations, selectConversation } from '../../store/slices/conversationSlice';
 import Lottie from "lottie-react";
 import loading from "../../../public/animation/loading.json";
 
@@ -10,14 +10,14 @@ function People() {
   const userData = useSelector((state) => state.authSlice.user);
   const [contactEmail, setContactEmail] = useState("");
   const dispatch = useDispatch();
-  const { conversation, error, status, selectedConversation } = useSelector(
+  const { conversation, error, status, selectedConversation, messages } = useSelector(
     (state) => state.conversationSlice
   );
 
   //========================= Fetch conversation list
   useEffect(() => {
     dispatch(fetchConversations());
-  }, [dispatch]);
+  }, [dispatch, messages]);
 
   if (status === "loading") {
     return <div><Lottie animationData={loading} /></div>;
@@ -27,9 +27,8 @@ function People() {
   const handelAdd = async (e) => {
     e.preventDefault();
     try {
-      const res = await chatServices.AddCon(contactEmail);
-      dispatch(fetchConversations());
-      console.log(res);
+      dispatch(addConversation(contactEmail));
+      setContactEmail("");
     } catch (error) {
       console.log(error);
     }
@@ -52,6 +51,8 @@ function People() {
             <div className="flex items-center bg-white rounded-xl px-3 py-2 w-full shadow">
               <FiSearch className="text-gray-500 mr-2" />
               <input
+                value={contactEmail}
+                onKeyDown={(e) => e.key === "Enter" && handelAdd(e)}
                 type="email"
                 placeholder="Search..."
                 required
@@ -90,7 +91,7 @@ function People() {
                       alt="user"
                     />
                   ) : (
-                    otherUser.fullName.charAt(0).toUpperCase()
+                    otherUser?.fullName?.charAt(0).toUpperCase()
                   )}
                 </div>
                 <div className='flex items-center justify-between w-full'>

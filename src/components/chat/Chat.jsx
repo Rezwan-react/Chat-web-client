@@ -10,7 +10,8 @@ function Chat() {
 
   const { selectedConversation, messages } = useSelector((state) => state.conversationSlice);
   const { user } = useSelector((state) => state.authSlice);
-
+  
+// =================== Fetch messages when selectedConversation changes
   useEffect(() => {
     if (selectedConversation?.conversationID) {
       dispatch(fetchMessages(selectedConversation.conversationID));
