@@ -34,6 +34,10 @@ export const authServices = {
       localStorage.setItem("loggedUser", JSON.stringify(res.data.user));
     }
     return res.data;
+  },
+  updateUser: async (fullName, password) => {
+    const res = await api.post("/auth/update", { fullName, password })
+    return res.data;
   }
 };
 // =============================== chatServices part start

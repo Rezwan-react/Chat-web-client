@@ -35,8 +35,8 @@ function Navbar() {
                                 )}
                             </div>
                             <div>
-                                <h2 className='text-[18px] font-semibold font-poppins text-[#000]'>{userData?.fullName}</h2>
-                                <Link className='text-[13px] font-normal font-poppins text-[#000]' to="/profile">Edit Profile</Link>
+                                <h2 className='text-[13px] font-semibold font-poppins text-[#000]'>{userData?.fullName}</h2>
+                                <Link className='text-[12px] font-normal font-poppins text-[#000]' to="/profile">Edit Profile</Link>
                             </div>
                         </div>
                         <div className='flex justify-center items-center gap-2'>

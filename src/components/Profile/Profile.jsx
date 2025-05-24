@@ -1,23 +1,37 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FaUserCircle } from 'react-icons/fa';
 import { FaRegEdit, FaRegSave } from 'react-icons/fa';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateUserData } from '../../store/slices/authSlice';
 
 function Profile() {
+    const user = useSelector((state) => state.authSlice.user);
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isEditingName, setIsEditingName] = useState(false);
     const [isEditingPassword, setIsEditingPassword] = useState(false);
+    const [profilePicUrl, setProfilePicUrl] = useState('');
+    const dispatch = useDispatch();
 
-    // Example save handler for name
+    // Initialize fields from user data
+    useEffect(() => {
+        if (user) {
+            setName(user.fullName || '');
+            setEmail(user.email || '');
+            setProfilePicUrl(user.avatar || '');
+        }
+    }, [user]);
+
+    // Save handler for name
     const handleSaveName = () => {
-        // Add your save logic here (e.g., API call)
+        dispatch(updateUserData({ fullName: name }));
         setIsEditingName(false);
     };
 
-    // Example save handler for password
+    // Save handler for password
     const handleSavePassword = () => {
-        // Add your save logic here (e.g., API call)
+        dispatch(updateUserData({ password }));
         setIsEditingPassword(false);
     };
 
@@ -32,7 +46,21 @@ function Profile() {
 
                     {/* Card Front */}
                     <div className="absolute  w-full h-full rounded-2xl flex flex-col items-center justify-center gap-5  shadow-[5px_5px_30px_rgb(4,4,4),-5px_-5px_30px_rgb(57,57,57)] backface-hidden">
-                        <FaUserCircle className="w-[100px] h-[100px] mt-8" />
+                        <div className=" w-[120px] h-[120px] mt-3.5 border border-amber-100 rounded-full overflow-hidden">
+                            {profilePicUrl ? (
+                                <img
+                                    src={profilePicUrl}
+                                    alt="Profile"
+                                    className="w-[120px] h-[120px] rounded-full object-cover"
+                                />
+                            ) : name ? (
+                                <div className="w-[120px] h-[120px] rounded-full bg-transparent flex items-center justify-center text-4xl font-bold text-white uppercase select-none">
+                                    {name.charAt(0).toUpperCase()}
+                                </div>
+                            ) : (
+                                <FaUserCircle className="w-full h-full text-gray-400" />
+                            )}
+                        </div>
 
                         <div className="flex flex-col items-center gap-3 w-full px-4">
                             {/* Name Input */}
@@ -70,6 +98,7 @@ function Profile() {
                                     placeholder="Email"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
+                                    readOnly
                                 />
                             </div>
 
