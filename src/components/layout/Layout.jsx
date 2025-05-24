@@ -1,4 +1,4 @@
-import { Navigate, Outlet } from 'react-router'
+import { Navigate, Outlet, useNavigate } from 'react-router'
 import Navbar from '../navbar/Navbar'
 import { useSelector } from 'react-redux'
 

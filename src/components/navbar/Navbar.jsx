@@ -2,12 +2,20 @@ import React from 'react'
 import { CgMenuRound } from 'react-icons/cg'
 import { CiChat1 } from 'react-icons/ci'
 import { GrGroup } from 'react-icons/gr'
-import { useSelector } from 'react-redux'
-import { Link, Links, NavLink } from 'react-router'
+import { useDispatch, useSelector } from 'react-redux'
+import { Link, Links, NavLink, useNavigate } from 'react-router'
 import { IoIosLogOut } from "react-icons/io";
 
 function Navbar() {
     const userData = useSelector((state) => state.authSlice.user);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        dispatch({ type: 'auth/logout' }); // Replace with your actual logout action
+        localStorage.removeItem("user");   // Remove user from localStorage
+        navigate('/login');                // Redirect to login page after logout
+    };
     return (
         <nav>
             <div className="container">
@@ -32,7 +40,7 @@ function Navbar() {
                             </div>
                         </div>
                         <div className='flex justify-center items-center gap-2'>
-                            <Link className='text-[13px] font-normal font-poppins text-[#000] mt-[30px] mb-7' to="/logout"><IoIosLogOut className='text-[30px]' /></Link>
+                            <button onClick={handleLogout} className='text-[13px] font-normal font-poppins text-[#000] mt-[30px] mb-7' to="/logout"><IoIosLogOut className='text-[30px]' /></button>
                         </div>
                     </div>
                 </div>

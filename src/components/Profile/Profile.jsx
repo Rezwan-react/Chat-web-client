@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { FaUserCircle } from 'react-icons/fa';
+import { FaRegEdit, FaRegSave } from 'react-icons/fa';
 
 function Profile() {
     const [name, setName] = useState('');
@@ -7,6 +8,18 @@ function Profile() {
     const [password, setPassword] = useState('');
     const [isEditingName, setIsEditingName] = useState(false);
     const [isEditingPassword, setIsEditingPassword] = useState(false);
+
+    // Example save handler for name
+    const handleSaveName = () => {
+        // Add your save logic here (e.g., API call)
+        setIsEditingName(false);
+    };
+
+    // Example save handler for password
+    const handleSavePassword = () => {
+        // Add your save logic here (e.g., API call)
+        setIsEditingPassword(false);
+    };
 
     return (
         <section className="w-full min-h-screen bg-[#212121] flex items-center justify-center">
@@ -26,25 +39,26 @@ function Profile() {
                             <div className="w-full flex justify-center items-center">
                                 <input
                                     type="text"
-                                    className="bg-[#2b2b2b] rounded px-3 py-1 w-full outline-none"
+                                    className="flex items-center w-[300px] sm:w-[400px] bg-transparent backdrop-blur-lg rounded-3xl shadow-lg p-2.5 outline-none"
                                     placeholder="Name"
                                     value={name}
                                     onChange={(e) => setName(e.target.value)}
                                     readOnly={!isEditingName}
                                 />
                                 <div className="flex gap-2 mt-1">
-                                    <button
-                                        className="text-xs bg-gray-700 px-2 py-1 rounded hover:bg-gray-600"
-                                        onClick={() => setIsEditingName(true)}
-                                    >
-                                        Edit
-                                    </button>
-                                    <button
-                                        className="text-xs bg-blue-600 px-2 py-1 rounded hover:bg-blue-500"
-                                        onClick={() => setIsEditingName(false)}
-                                    >
-                                        Save
-                                    </button>
+                                    {!isEditingName ? (
+                                        <button className="text-xl flex justify-center items-center bg-transparent ml-2 px-2.5 py-2 rounded active:scale-95"
+                                            onClick={() => setIsEditingName(true)}
+                                        >
+                                            <FaRegEdit className="text-blue-500 text-lg" />
+                                        </button>
+                                    ) : (
+                                        <button className="text-xl flex justify-center items-center bg-transparent ml-2 px-2.5 py-2 rounded active:scale-95"
+                                            onClick={handleSaveName}
+                                        >
+                                            <FaRegSave className="text-green-600 text-lg" />
+                                        </button>
+                                    )}
                                 </div>
                             </div>
 
@@ -52,7 +66,7 @@ function Profile() {
                             <div className="w-full">
                                 <input
                                     type="email"
-                                    className="bg-[#2b2b2b] rounded px-3 py-1 w-full outline-none"
+                                    className="flex items-center w-[300px] sm:w-[400px] bg-transparent backdrop-blur-lg rounded-3xl shadow-lg p-2.5 outline-none"
                                     placeholder="Email"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
@@ -63,25 +77,28 @@ function Profile() {
                             <div className="w-full flex justify-center items-center">
                                 <input
                                     type="password"
-                                    className="bg-[#2b2b2b] rounded px-3 py-1 w-full outline-none"
+                                    className="flex items-center w-[300px] sm:w-[400px] bg-transparent backdrop-blur-lg rounded-3xl shadow-lg p-2.5 outline-none"
                                     placeholder="New Password"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                     readOnly={!isEditingPassword}
                                 />
                                 <div className="flex gap-2 mt-1">
-                                    <button
-                                        className="text-xs bg-gray-700 px-2 py-1 rounded hover:bg-gray-600"
-                                        onClick={() => setIsEditingPassword(true)}
-                                    >
-                                        Edit
-                                    </button>
-                                    <button
-                                        className="text-xs bg-blue-600 px-2 py-1 rounded hover:bg-blue-500"
-                                        onClick={() => setIsEditingPassword(false)}
-                                    >
-                                        Save
-                                    </button>
+                                    {!isEditingPassword ? (
+                                        <button
+                                            className="text-xl flex justify-center items-center bg-transparent ml-2 px-2.5 py-2 rounded active:scale-95"
+                                            onClick={() => setIsEditingPassword(true)}
+                                        >
+                                            <FaRegEdit className="text-blue-500 text-xl" />
+                                        </button>
+                                    ) : (
+                                        <button
+                                            className="text-xl flex justify-center items-center bg-transparent ml-2 px-2.5 py-2 rounded active:scale-95"
+                                            onClick={handleSavePassword}
+                                        >
+                                            <FaRegSave className="text-green-600 text-xl" />
+                                        </button>
+                                    )}
                                 </div>
                             </div>
                         </div>
