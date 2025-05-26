@@ -32,14 +32,14 @@ function Chat() {
   }, [messages]);
 
   return (
-    <section className='w-full h-screen'>
+    <section className='w-full h-screen bg[#212121]'>
       <div className="container">
-        <div className='chat_text'>
+        <div className='chat_text bg-[#212121]'>
           {/* ========== Header ========== */}
-          <div className="userDataBar p-5 bg-[#FDFAF6]">
+          <div className="userDataBar p-5 bg-[#212121] border-b-2 border-amber-100">
             <div className="singel_users flex justify-between mb-5 items-center">
               <div className='flex items-center gap-5'>
-                <div className="bg-green-100 user_image w-[50px] h-[50px] rounded-full border-2 border-[#FFC1DA] overflow-hidden flex items-center justify-center text-black text-2xl font-bold font-poppins uppercase">
+                <div className="bg-[#212121] user_image w-[50px] h-[50px] rounded-full border-2 border-[#FFC1DA] overflow-hidden flex items-center justify-center text-[#fff] text-2xl font-bold font-poppins uppercase">
                   {selectedConversation?.avatar ? (
                     <img
                       src={selectedConversation?.avatar}
@@ -50,7 +50,7 @@ function Chat() {
                     selectedConversation?.fullName?.charAt(0).toUpperCase()
                   )}
                 </div>
-                <h2 className='text-lg font-semibold text-[#222222] font-poppins'>
+                <h2 className='text-lg font-semibold text-[#fff] font-poppins'>
                   {selectedConversation?.fullName}
                 </h2>
               </div>
@@ -68,7 +68,7 @@ function Chat() {
                       <p className="w-fit py-1 px-3 ml-auto bg-[#6A9AB0] rounded-xl font-Poppins text-white">
                         {message?.content}
                       </p>
-                      <p className="w-fit py-1 px-3 ml-auto rounded-xl text-sm font-Poppins text-black">
+                      <p className="w-fit py-1 px-3 ml-auto rounded-xl text-sm font-Poppins text-[#fff]">
                         {message?.createdAt ? new Date(message.createdAt).toLocaleTimeString() : ''}
                       </p>
                     </>
@@ -78,7 +78,7 @@ function Chat() {
                       <p className="w-fit py-1 px-3 bg-[#3A6D8C] rounded-xl font-Poppins text-white">
                         {message?.content}
                       </p>
-                      <p className="w-fit py-1 px-3 rounded-xl text-sm font-Poppins text-black">
+                      <p className="w-fit py-1 px-3 rounded-xl text-sm font-Poppins text-[#fff]">
                         {message?.createdAt ? new Date(message.createdAt).toLocaleTimeString() : ''}
                       </p>
                     </>
@@ -91,16 +91,16 @@ function Chat() {
           </div>
 
           {/* ========== Message Input ========== */}
-          <form onSubmit={handleSendChat} className="msg_input flex px-10 border-t-2 border-t-[#640D5F]">
+          <form onSubmit={handleSendChat} className="msg_input flex px-10 py-[19px] border-t-2 border-t-amber-100 bg-[#212121]">
             <input
               onChange={(e) => setContent(e.target.value)}
               type="text"
               value={content}
               required
-              className='w-full bg-transparent text-xl font-bold font-Poppins text-[#522258] mt-4 outline-none'
+              className='w-full bg-transparent text-xl font-bold font-Poppins text-[#fff] mt-4 outline-none'
               placeholder='Enter your message'
             />
-            <button type='submit' className='text-xl text-[#2E236C] active:scale-[1.1] mt-4 ml-2'>
+            <button type='submit' className='text-xl text-[#fff] active:scale-[1.1] mt-4 ml-2'>
               <FaRegPaperPlane />
             </button>
           </form>

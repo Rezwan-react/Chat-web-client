@@ -16,25 +16,25 @@ function ChatPage() {
       {selectedConversation ? (
         <div className="flex w-full min-h-screen">
           {/* Sidebar */}
-          <div className="w-[320px] bg-[#e8e8e8] border-r border-gray-300">
+          <div className="w-[320px] bg-[#212121] border-r ">
             <People />
           </div>
 
           {/* Main Chat Area */}
-          <div className="flex-1 bg-white">
+          <div className="flex-1 bg-[#212121]">
             <Chat />
           </div>
         </div>
       ) : (
         <div className="flex w-full min-h-screen">
           {/* Sidebar */}
-          <div className="w-[320px] bg-[#e8e8e8] border-r border-gray-300">
+          <div className="w-[320px] bg-[#212121] border-r ">
             <People />
           </div>
 
           {/* Placeholder Message */}
-          <div className="flex-1 p-5 flex items-center justify-center text-gray-500 bg-white">
-            <p className="text-xl font-medium font-poppins text-black">
+          <div className="flex-1 p-5 flex items-center justify-center text-gray-500 bg-[#212121]">
+            <p className="text-xl font-medium font-poppins text-[#fff]">
               Select a conversation or start a new one
             </p>
           </div>

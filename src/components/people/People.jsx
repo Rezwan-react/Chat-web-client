@@ -43,13 +43,13 @@ function People() {
 
   return (
     <>
-      <section className='bg-[#e8e8e8] w-full min-h-screen py-6'>
+      <section className='bg-[#212121] w-full min-h-screen py-6 border border-amber-100'>
         <div className="pl-4 pr-4 max-w-md">
 
           {/*======================= Search Bar & Add Button ============================*/}
           <form onSubmit={handelAdd} className="flex items-center justify-between mb-4">
-            <div className="flex items-center bg-white rounded-xl px-3 py-2 w-full shadow">
-              <FiSearch className="text-gray-500 mr-2" />
+            <div className="flex items-center bg-[#212121] border border-amber-100 rounded-xl px-3 py-2 w-full shadow">
+              <FiSearch className="text-[#fff] mr-2" />
               <input
                 value={contactEmail}
                 onKeyDown={(e) => e.key === "Enter" && handelAdd(e)}
@@ -57,7 +57,7 @@ function People() {
                 placeholder="Search..."
                 required
                 onChange={(e) => setContactEmail(e.target.value)}
-                className="bg-transparent w-full outline-none text-sm"
+                className="bg-transparent w-full outline-none text-sm text-[#fff] placeholder:text-gray-500"
               />
             </div>
             <button type='submit' className="ml-3 bg-[#009087] hover:bg-[#007b74] text-white p-2 rounded-xl shadow transition active:scale-95">
@@ -80,10 +80,10 @@ function People() {
               <div
                 key={item._id}
                 onClick={() => handelSelect({ ...otherUser, conversationID: item._id })}
-                className={`flex items-center gap-5 p-4 border border-[#e8e8e8] rounded-xl shadow-neumorphic mb-4 cursor-pointer transition 
-                ${isSelected ? 'bg-[#009087] text-white' : 'bg-white text-black'}`}
+                className={`flex items-center gap-5 p-4 shadow-neumorphic mb-4 cursor-pointer transition 
+                ${isSelected ? 'bg-[#212121] border border-[#e8e8e8] rounded-xl  text-white' : 'bg-[#212121] text-[#fff]'}`}
               >
-                <div className="bg-green-100 user_image w-[60px] h-[50px] rounded-full overflow-hidden flex items-center justify-center text-2xl font-bold text-black uppercase">
+                <div className="bg-[#212121] user_image w-[60px] h-[50px] rounded-full overflow-hidden flex items-center justify-center text-2xl font-bold text-[#fff] uppercase">
                   {otherUser.avatar ? (
                     <img
                       src={otherUser.avatar}
@@ -96,15 +96,15 @@ function People() {
                 </div>
                 <div className='flex items-center justify-between w-full'>
                   <div>
-                    <h2 className={`text-lg font-semibold ${isSelected ? 'text-white' : 'text-black'}`}>
+                    <h2 className={`text-lg font-semibold ${isSelected ? 'text-white' : 'text-[#fff]'}`}>
                       {otherUser.fullName}
                     </h2>
-                    <p className={`text-sm font-semibold ${isSelected ? 'text-white' : 'text-gray-600'}`}>
+                    <p className={`text-sm font-semibold ${isSelected ? 'text-white' : 'text-[#fff]'}`}>
                       {lastMessage}
                     </p>
                   </div>
                   <div>
-                    <p className={`py-1 px-3 rounded-xl text-sm font-Poppins ${isSelected ? 'text-white' : 'text-gray-600'}`}>
+                    <p className={`py-1 px-3 rounded-xl text-sm font-Poppins ${isSelected ? 'text-white' : 'text-[#fff]'}`}>
                       {timestamp}
                     </p>
                   </div>

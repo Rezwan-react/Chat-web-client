@@ -49,8 +49,8 @@ function Profile() {
 
     return (
         <section className="w-full min-h-screen bg-[#212121] flex items-center justify-center">
-            <div className="w-[450px] h-[400px]  text-white font-sans">
-                <div className="w-full h-full rounded-2xl relative transition-transform duration-[1500ms] [transform-style:preserve-3d]">
+            <div className="w-[450px] h-[400px]  text-white font-sans ">
+                <div className="w-full h-full rounded-2xl border border-amber-100 relative transition-transform duration-[1500ms] [transform-style:preserve-3d]">
                     {/* Card Top Header */}
                     <div className="absolute w-1/2 h-[10%] top-0 left-1/4 flex items-center justify-center bg-transparent border-x border-b border-black rounded-b-xl shadow-[3px_3px_15px_rgb(0,0,0),-3px_-3px_15px_rgb(58,58,58)]">
                         <p className="text-sm font-bold text-white">Profile</p>
@@ -118,13 +118,13 @@ function Profile() {
                                         <button className="text-xl flex justify-center items-center bg-transparent ml-2 px-2.5 py-2 rounded active:scale-95"
                                             onClick={() => setIsEditingName(true)}
                                         >
-                                            <FaRegEdit className="text-blue-500 text-lg" />
+                                            <FaRegEdit className="text-blue-500 text-lx" />
                                         </button>
                                     ) : (
                                         <button className="text-xl flex justify-center items-center bg-transparent ml-2 px-2.5 py-2 rounded active:scale-95"
                                             onClick={handleSaveName}
                                         >
-                                            <FaRegSave className="text-green-600 text-lg" />
+                                            <FaRegSave className="text-green-600 text-lx" />
                                         </button>
                                     )}
                                 </div>
