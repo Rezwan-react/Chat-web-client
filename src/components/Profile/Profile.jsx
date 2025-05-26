@@ -12,6 +12,8 @@ function Profile() {
     const [isEditingName, setIsEditingName] = useState(false);
     const [isEditingPassword, setIsEditingPassword] = useState(false);
     const [profilePicUrl, setProfilePicUrl] = useState('');
+    const [isEditingPic, setIsEditingPic] = useState(false);
+    const [newProfilePic, setNewProfilePic] = useState(null);
     const dispatch = useDispatch();
 
     // Initialize fields from user data
@@ -35,6 +37,16 @@ function Profile() {
         setIsEditingPassword(false);
     };
 
+    // Handler to save new profile picture
+    const handleSaveProfilePic = () => {
+        if (newProfilePic) {
+            dispatch(updateUserData({ avatar: newProfilePic }));
+            setProfilePicUrl(newProfilePic);
+            setIsEditingPic(false);
+            setNewProfilePic(null);
+        }
+    };
+
     return (
         <section className="w-full min-h-screen bg-[#212121] flex items-center justify-center">
             <div className="w-[450px] h-[400px]  text-white font-sans">
@@ -46,12 +58,12 @@ function Profile() {
 
                     {/* Card Front */}
                     <div className="absolute  w-full h-full rounded-2xl flex flex-col items-center justify-center gap-5  shadow-[5px_5px_30px_rgb(4,4,4),-5px_-5px_30px_rgb(57,57,57)] backface-hidden">
-                        <div className=" w-[120px] h-[120px] mt-3.5 border border-amber-100 rounded-full overflow-hidden">
+                        <div className="w-[120px] h-[120px] mt-3.5 border border-amber-100 rounded-full overflow-hidden relative">
                             {profilePicUrl ? (
                                 <img
                                     src={profilePicUrl}
                                     alt="Profile"
-                                    className="w-[120px] h-[120px] rounded-full object-cover"
+                                    className="w-[120px] h-[120px] rounded-full object-cover "
                                 />
                             ) : name ? (
                                 <div className="w-[120px] h-[120px] rounded-full bg-transparent flex items-center justify-center text-4xl font-bold text-white uppercase select-none">
@@ -60,8 +72,36 @@ function Profile() {
                             ) : (
                                 <FaUserCircle className="w-full h-full text-gray-400" />
                             )}
-                        </div>
 
+                            <div className="absolute bottom-2 right-2 bg-transparent rounded-full  p-1 shadow-md">
+                                {!isEditingPic ? (
+                                    <label htmlFor="profile-pic-upload" className="cursor-pointer">
+                                        <FaRegEdit className="text-blue-500 text-[18px]" />
+                                    </label>
+                                ) : (
+                                    <button onClick={handleSaveProfilePic}>
+                                        <FaRegSave className="text-blue-500 text-[18px]" />
+                                    </button>
+                                )}
+                                <input
+                                    id="profile-pic-upload"
+                                    type="file"
+                                    accept="image/*"
+                                    className="overflow-hidden absolute opacity-0 w-0 h-0"
+                                    onChange={(e) => {
+                                        const file = e.target.files[0];
+                                        if (file) {
+                                            const reader = new FileReader();
+                                            reader.onloadend = () => {
+                                                setNewProfilePic(reader.result);
+                                                setIsEditingPic(true);
+                                            };
+                                            reader.readAsDataURL(file);
+                                        }
+                                    }}
+                                />
+                            </div>
+                        </div>
                         <div className="flex flex-col items-center gap-3 w-full px-4">
                             {/* Name Input */}
                             <div className="w-full flex justify-center items-center">
@@ -131,6 +171,12 @@ function Profile() {
                                 </div>
                             </div>
                         </div>
+                    </div>
+
+                    {/* Hidden block for future use */}
+                    <div className="hidden" aria-hidden="true">
+                        {/* You can put a spinner, message, or any content here */}
+                        Hidden block content
                     </div>
                 </div>
             </div>
