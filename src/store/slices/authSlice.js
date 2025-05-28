@@ -4,9 +4,9 @@ import { authServices } from "../../services/api";
 export const updateUserData = createAsyncThunk(
     "/auth/update",
     async (userData) => {
-        const { fullName, password } = userData;
+        const { fullName, password, avatar } = userData;
         try {
-            const res = await authServices.updateUser(fullName, password);
+            const res = await authServices.updateUser(fullName, password, avatar);
             return res;
         } catch (error) {
             return Promise.reject(error);
@@ -30,8 +30,8 @@ const authSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(updateUserData.fulfilled, (state, actions) => {
-                 state.user = actions.payload;
-                 localStorage.setItem("loggedUser", JSON.stringify(actions.payload));
+                state.user = actions.payload;
+                localStorage.setItem("loggedUser", JSON.stringify(actions.payload));
             })
     },
 });

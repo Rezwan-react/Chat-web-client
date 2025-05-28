@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { FaUserCircle } from 'react-icons/fa';
 import { FaRegEdit, FaRegSave } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,7 +13,9 @@ function Profile() {
     const [isEditingPassword, setIsEditingPassword] = useState(false);
     const [profilePicUrl, setProfilePicUrl] = useState('');
     const [isEditingPic, setIsEditingPic] = useState(false);
-    const [newProfilePic, setNewProfilePic] = useState(null);
+    const [avatar, setAvatar] = useState(null);
+    const [avatarPreview, setAvatarPreview] = useState('');
+    const fileInputRef = useRef(null);
     const dispatch = useDispatch();
 
     // Initialize fields from user data
@@ -22,6 +24,7 @@ function Profile() {
             setName(user.fullName || '');
             setEmail(user.email || '');
             setProfilePicUrl(user.avatar || '');
+            setAvatarPreview(user.avatar || '');
         }
     }, [user]);
 
@@ -39,13 +42,10 @@ function Profile() {
 
     // Handler to save new profile picture
     const handleSaveProfilePic = () => {
-        if (newProfilePic) {
-            dispatch(updateUserData({ avatar: newProfilePic }));
-            setProfilePicUrl(newProfilePic);
-            setIsEditingPic(false);
-            setNewProfilePic(null);
-        }
+        dispatch(updateUserData({ avatar }));
+        setIsEditingPic(false);
     };
+
 
     return (
         <section className="w-full min-h-screen bg-[#212121] flex items-center justify-center">
@@ -59,9 +59,9 @@ function Profile() {
                     {/* Card Front */}
                     <div className="absolute  w-full h-full rounded-2xl flex flex-col items-center justify-center gap-5  shadow-[5px_5px_30px_rgb(4,4,4),-5px_-5px_30px_rgb(57,57,57)] backface-hidden">
                         <div className="w-[120px] h-[120px] mt-3.5 border border-amber-100 rounded-full overflow-hidden relative">
-                            {profilePicUrl ? (
+                            {avatarPreview ? (
                                 <img
-                                    src={profilePicUrl}
+                                    src={avatarPreview}
                                     alt="Profile"
                                     className="w-[120px] h-[120px] rounded-full object-cover "
                                 />
@@ -75,7 +75,7 @@ function Profile() {
 
                             <div className="absolute bottom-2 right-2 bg-transparent rounded-full  p-1 shadow-md">
                                 {!isEditingPic ? (
-                                    <label htmlFor="profile-pic-upload" className="cursor-pointer">
+                                    <label htmlFor="avatar" className="cursor-pointer">
                                         <FaRegEdit className="text-blue-500 text-[18px]" />
                                     </label>
                                 ) : (
@@ -84,16 +84,18 @@ function Profile() {
                                     </button>
                                 )}
                                 <input
-                                    id="profile-pic-upload"
+                                    id="avatar"
+                                    name="avatar"
                                     type="file"
-                                    accept="image/*"
                                     className="overflow-hidden absolute opacity-0 w-0 h-0"
+                                    ref={fileInputRef}
                                     onChange={(e) => {
                                         const file = e.target.files[0];
                                         if (file) {
+                                            setAvatar(file);
                                             const reader = new FileReader();
                                             reader.onloadend = () => {
-                                                setNewProfilePic(reader.result);
+                                                setAvatarPreview(reader.result);
                                                 setIsEditingPic(true);
                                             };
                                             reader.readAsDataURL(file);

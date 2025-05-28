@@ -79,6 +79,8 @@ const conversationSlice = createSlice({
             .addCase(fetchConversations.rejected, (state, action) => {
                 state.status = "failed";
                 state.error = action.error;
+                localStorage.setItem("loggedUser", null);
+                localStorage.setItem("token", null);
             })
             .addCase(addConversation.fulfilled, (state, action) => {
                 state.conversation.unshift(action.payload)

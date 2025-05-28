@@ -35,10 +35,14 @@ export const authServices = {
     }
     return res.data;
   },
-  updateUser: async (fullName, password) => {
-    const res = await api.post("/auth/update", { fullName, password })
+  updateUser: async (fullName, password, avatar) => {
+    const res = await api.post("/auth/update", { fullName, password, avatar }, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
     return res.data;
-  }
+  },
 };
 // =============================== chatServices part start
 export const chatServices = {
