@@ -5,7 +5,7 @@ import { newMessage } from '../store/slices/conversationSlice';
 let socket;
 
 export const initSocket = () => {
-    socket = io.connect("http://localhost:8000")
+    socket = io.connect("http://localhost:5000")
 
     socket.on("new_message", (res) => {
         store.dispatch(newMessage(res))
