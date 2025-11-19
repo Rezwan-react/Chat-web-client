@@ -66,38 +66,58 @@ function People() {
           </form>
 
           {/*============================= People Card List ===========================*/}
-          {conversation.map((item) => {
-            const isCreator = item.creator._id === userData._id;
-            const otherUser = isCreator ? item.participent : item.creator;
-            const lastMessage = item.lastMessage?.content || 'No messages yet';
-            const timestamp = item.lastMessage?.createdAt
-              ? new Date(item.lastMessage.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+          {conversation?.map((item) => {
+
+            // SAFETY CHECK – avoid null error
+            const creator = item?.creator;
+            const participent = item?.participent;
+
+            if (!creator || !participent) {
+              // console.log("Null user found in conversation:", item);
+              return null; // skip bad data
+            }
+
+            const isCreator = creator?._id === userData?._id;
+            const otherUser = isCreator ? participent : creator;
+
+            if (!otherUser) return null;
+
+            const lastMessage = item?.lastMessage?.content || 'No messages yet';
+            const timestamp = item?.lastMessage?.createdAt
+              ? new Date(item.lastMessage.createdAt).toLocaleTimeString([], {
+                  hour: '2-digit',
+                  minute: '2-digit'
+                })
               : '';
 
-            const isSelected = selectedConversation?.conversationID === item._id;
+            const isSelected = selectedConversation?.conversationID === item?._id;
 
             return (
               <div
-                key={item._id}
-                onClick={() => handelSelect({ ...otherUser, conversationID: item._id })}
+                key={item?._id}
+                onClick={() => handelSelect({ ...otherUser, conversationID: item?._id })}
                 className={`flex items-center gap-5 p-4 shadow-neumorphic mb-4 cursor-pointer transition 
                 ${isSelected ? 'bg-[#212121] border border-[#e8e8e8] rounded-xl  text-white' : 'bg-[#212121] text-[#fff]'}`}
               >
+
+                {/* USER AVATAR OR INITIAL */}
                 <div className="bg-[#212121] user_image w-[60px] h-[50px] rounded-full overflow-hidden flex items-center justify-center text-2xl font-bold text-[#fff] uppercase">
-                  {otherUser.avatar ? (
+                  {otherUser?.avatar ? (
                     <img
-                      src={otherUser.avatar}
+                      src={otherUser?.avatar}
                       className='w-full h-full object-cover'
                       alt="user"
                     />
                   ) : (
-                    otherUser?.fullName?.charAt(0).toUpperCase()
+                    otherUser?.fullName?.charAt(0)?.toUpperCase()
                   )}
                 </div>
+
+                {/* USER DETAILS */}
                 <div className='flex items-center justify-between w-full'>
                   <div>
                     <h2 className={`text-lg font-semibold ${isSelected ? 'text-white' : 'text-[#fff]'}`}>
-                      {otherUser.fullName}
+                      {otherUser?.fullName || "Unknown User"}
                     </h2>
                     <p className={`text-sm font-semibold ${isSelected ? 'text-white' : 'text-[#fff]'}`}>
                       {lastMessage}
